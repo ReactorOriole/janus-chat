@@ -9,14 +9,21 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
 
-public class ChatWindow {
+public class ChatWindow implements ActionListener{
 
 	private JFrame frame;
 	private JTextField sendTextField;
+	private JEditorPane editorPane=null;
 
 	/**
 	 * Launch the application.
@@ -59,6 +66,7 @@ public class ChatWindow {
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
 		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(this);
 		panel_1.add(btnSend, BorderLayout.EAST);
 		
 		sendTextField = new JTextField();
@@ -67,7 +75,7 @@ public class ChatWindow {
 		
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.NORTH);
-		
+	    
 		JComboBox textCombo = new JComboBox();
 		textCombo.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Arial Black", "Comic Sans MS", "Courier New", "Georgia", "Impact", "Times New Roman", "Trebuchet MS", "Verdana"}));
 		panel_2.add(textCombo);
@@ -77,9 +85,15 @@ public class ChatWindow {
 		sizeCombo.setSelectedIndex(2);
 		panel_2.add(sizeCombo);
 		
-		JTextArea txtrTextArea = new JTextArea();
-		txtrTextArea.setText("Text area");
-		panel.add(txtrTextArea, BorderLayout.CENTER);
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane, BorderLayout.CENTER);
+		editorPane = new JEditorPane();
+		scrollPane.setViewportView(editorPane);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("Send")){
+			editorPane.setText(sendTextField.getText());
+		}
+	}
 }
