@@ -23,12 +23,13 @@ public class ChatWindow implements ActionListener{
 
 	private JFrame frame;
 	private JTextField sendTextField;
-	private JEditorPane editorPane=null;
+	private JEditorPane editorPane= null;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Controller.JanusTransformer jt = new Controller.JanusTransformer("s", "s", "s");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -93,7 +94,12 @@ public class ChatWindow implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Send")){
-			editorPane.setText(sendTextField.getText());
+			try {
+				editorPane.setPage("../Model/ClientData/TextLog.xml");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 }
