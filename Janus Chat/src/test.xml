@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<conversation>
+	<time="0:00:00">
+		<message text="Hello" sender="192.1.1.1" receiver="192.1.1.2"/>
+	</time>
+	<time="0:01:00">
+		<message text="Hi" sender="192.1.1.2" receiver="192.1.1.1"/>
+	</time>
+	<time="0:02:00">
+		<message text="Hows it going" sender="192.1.1.1" receiver="192.1.1.2"/>
+	</time>
+	<time="0:03:00">
+		<message text="good, you?" sender="192.1.1.2" receiver="192.1.1.1"/>
+	</time>
+	<time="0:04:00">
+		<message text="not bad, do you like janus chat?" sender="192.1.1.1" receiver="192.1.1.2"/>
+	</time>
+	<time="0:05:00">
+		<message text="I do it is the best" sender="192.1.1.2" receiver="192.1.1.1"/>
+	</time>
+	<time="0:06:00">
+		<message text="I know, I wish I developed it" sender="192.1.1.1" receiver="192.1.1.2"/>
+	</time>
+	<time="0:07:00">
+		<message text="If you did I bet you would get an A in XML from Professor Liu" sender="192.1.1.2" receiver="192.1.1.1"/>
+	</time>
+</conversation>
