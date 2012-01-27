@@ -7,16 +7,16 @@
 		<xsl:for-each select="//conversation/time">
 			<p>
 				<xsl:element name="font">
-					<xsl:attribute name="fname"><xsl:value-of
-						select="./preferences/@size" /></xsl:attribute>
-					<xsl:attribute name="size"><xsl:value-of
+					<xsl:attribute name="face"><xsl:value-of
 						select="./preferences/@font" /></xsl:attribute>
+					<xsl:attribute name="size"><xsl:value-of
+						select="./preferences/@size" /></xsl:attribute>
 					<xsl:attribute name="color"><xsl:value-of
 						select="./preferences/@color" /></xsl:attribute>
+					<xsl:value-of select="./message/@sender" />
+					:
+					<xsl:value-of select="./message/@text" />
 				</xsl:element>
-				<xsl:value-of select="./message/@sender" />
-				:
-				<xsl:value-of select="./message/@text" />
 			</p>
 		</xsl:for-each>
 	</xsl:template>
