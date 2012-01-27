@@ -3,34 +3,34 @@
 <conversation>
 	<time time="0:00:00">
 		<message text="Hello" sender="Alice"/>
-		<preferences font="Comic Sans MS" color="Red" size="24"/>
+		<preferences font="Comic Sans MS" color="Red" size="7"/>
 	</time>
 	<time time="0:01:00">
 		<message text="Hi" sender="Bob"/>
-		<preferences font="time times New Roman" color="Red" size="18"/>
+		<preferences font="time times New Roman" color="Red" size="6"/>
 	</time>
 	<time time="0:02:00">
 		<message text="Hows it going" sender="Alice"/>
-		<preferences font="Arial" color="Black" size="14"/>
+		<preferences font="Arial" color="Black" size="5"/>
 	</time>
 	<time time="0:03:00">
 		<message text="good, you?" sender="Bob"/>
-		<preferences font="Arial" color="Blue" size="16"/>
+		<preferences font="Arial" color="Blue" size="4"/>
 	</time>
 	<time time="0:04:00">
 		<message text="not bad, do you like janus chat?" sender="Alice"/>
-		<preferences font="Arial" color="Green" size="12"/>
+		<preferences font="Arial" color="Green" size="3"/>
 	</time>
 	<time time="0:05:00">
 		<message text="I do it is the best" sender="Bob"/>
-		<preferences font="Arial" color="Purple" size="96"/>
+		<preferences font="Arial" color="Purple" size="2"/>
 	</time>
 	<time time="0:06:00">
 		<message text="I know, I wish I developed it" sender="Alice"/>
-		<preferences font="Arial" color="Orange" size="12"/>
+		<preferences font="Arial" color="Orange" size="1"/>
 	</time>
 	<time time="0:07:00">
 		<message text="If you did I bet you would get an A in XML from Professor Liu" sender="Bob"/>
-		<preferences font="Arial" color="Blue" size="12"/>
+		<preferences font="Arial" color="Blue" size="7"/>
 	</time>
 </conversation>
