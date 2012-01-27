@@ -4,19 +4,19 @@
 
 	<xsl:output method="html" indent="yes" />
 	<xsl:template match="/">
-		<xsl:for-each select="//coversation/time">
+		<xsl:for-each select="//conversation/time">
 			<p>
-				<font size=
-					<xsl:value-of select="./preferences/@size" />
-					face=
-					<xsl:value-of select="./preferences/@font" />
-					color=
-					<xsl:value-of select="./preferences/@color" />
-					>
-					<xsl:value-of select="./message/sender" />
-					:
-					<xsl:value-of select="./message/text" />
-				</font>
+				<xsl:attribute-set name="font">
+					<xsl:attribute name="fname"><xsl:value-of
+						select="./preferences/@size" /></xsl:attribute>
+					<xsl:attribute name="size"><xsl:value-of
+						select="./preferences/@font" /></xsl:attribute>
+					<xsl:attribute name="color"><xsl:value-of
+						select="./preferences/@color" /></xsl:attribute>
+				</xsl:attribute-set>
+				<xsl:value-of select="./message/@sender" />
+				:
+				<xsl:value-of select="./message/@text" />
 			</p>
 		</xsl:for-each>
 	</xsl:template>

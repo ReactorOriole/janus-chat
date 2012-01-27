@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ChatLog.xsl"?>
 <conversation>
-	<time="0:00:00">
+	<time time="0:00:00">
 		<message text="Hello" sender="Alice"/>
-		<preferences font="Arial" color="Black" size="12"/>
+		<preferences font="Comic Sans MS" color="Red" size="24"/>
 	</time>
-	<time="0:01:00">
+	<time time="0:01:00">
 		<message text="Hi" sender="Bob"/>
-		<preferences font="Times New Roman" color="Red" size="18"/>
+		<preferences font="time times New Roman" color="Red" size="18"/>
 	</time>
-	<time="0:02:00">
+	<time time="0:02:00">
 		<message text="Hows it going" sender="Alice"/>
 		<preferences font="Arial" color="Black" size="14"/>
 	</time>
-	<time="0:03:00">
+	<time time="0:03:00">
 		<message text="good, you?" sender="Bob"/>
 		<preferences font="Arial" color="Blue" size="16"/>
 	</time>
-	<time="0:04:00">
+	<time time="0:04:00">
 		<message text="not bad, do you like janus chat?" sender="Alice"/>
 		<preferences font="Arial" color="Green" size="12"/>
 	</time>
-	<time="0:05:00">
+	<time time="0:05:00">
 		<message text="I do it is the best" sender="Bob"/>
 		<preferences font="Arial" color="Purple" size="96"/>
 	</time>
-	<time="0:06:00">
+	<time time="0:06:00">
 		<message text="I know, I wish I developed it" sender="Alice"/>
 		<preferences font="Arial" color="Orange" size="12"/>
 	</time>
-	<time="0:07:00">
+	<time time="0:07:00">
 		<message text="If you did I bet you would get an A in XML from Professor Liu" sender="Bob"/>
 		<preferences font="Arial" color="Blue" size="12"/>
 	</time>
