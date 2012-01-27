@@ -1,0 +1,18 @@
+<messages>
+	<message name="helloServer">
+		<type>1</type>
+		<sn>[Screen Name]</sn>
+		<clientip>[IP Address]</clientip>
+	</message>
+	<message name="buddyNotification">
+		<type>2</type>
+		<sn>[Buddy's SN]</sn>
+		<buddyip>[Buddy's IP]</buddyip>
+		<status>[Online/Offline/etc.]</status>
+	</message>
+	<message name="goodbyeServer">
+		<type>0</type>
+		<sn>[Screen Name]</sn>
+		<clientip>[IP Address]</clientip>
+	</message>
+</messages>
