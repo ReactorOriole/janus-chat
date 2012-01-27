@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.*;
 
@@ -86,16 +87,31 @@ public abstract class JanusMessageService {
 		}
 	}
 	
-	static boolean sendClientMessage( String ClientIP, String message ) throws IOException
+	static boolean sendClientMessage( String ClientIP, String MyIP, String chatMessage ) throws IOException
 	{
 		Socket s = null;
 		PrintWriter out = null;
 		
 		try
 		{
+			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+			
+			Element message = doc.createElement( "message" );
+			doc.appendChild( message );
+			Element fromIP = doc.createElement( "fromIP" );
+			Element chatText = doc.createElement( "chatMessage" );
+			message.appendChild( fromIP );
+			message.appendChild( chatText );
+			Text text = doc.createTextNode( MyIP );
+			fromIP.appendChild( text );
+			text = doc.createTextNode( chatMessage );
+			chatText.appendChild( text );
+			
 			s = new Socket( ClientIP, 999 );
 			out = new PrintWriter( s.getOutputStream(), true );
-			out.println( /* DOCUMENT */ );
+			out.println( doc );
 			return true;
 		}
 		catch( UnknownHostException e )
@@ -106,6 +122,10 @@ public abstract class JanusMessageService {
 		catch( IOException e )
 		{
 			System.err.println( "Couldn't get I/O for the connection to: " + ClientIP );
+			return false;
+		} catch (ParserConfigurationException e)
+		{
+			e.printStackTrace();
 			return false;
 		}
 		finally
