@@ -75,7 +75,7 @@ public class ChatWindow implements ActionListener{
 		
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.NORTH);
-		
+	    
 		JComboBox textCombo = new JComboBox();
 		textCombo.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Arial Black", "Comic Sans MS", "Courier New", "Georgia", "Impact", "Times New Roman", "Trebuchet MS", "Verdana"}));
 		panel_2.add(textCombo);
