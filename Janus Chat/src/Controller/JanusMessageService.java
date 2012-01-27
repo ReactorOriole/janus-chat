@@ -1,18 +1,50 @@
 package Controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.*;
 
-public abstract class JanusMessageService {
+import Model.MessageTypes;
 
-	static boolean sendServerMessage( String message )
+public abstract class JanusMessageService {
+	
+	static boolean sendHelloServerMessage( String screenName, String ipAddress )
+	{
+		try {
+			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+			
+			Element message = doc.createElement( "message" );
+			doc.appendChild( message );
+			Element type = doc.createElement( "type" );
+			Element sn = doc.createElement( "sn" );
+			Element clientip = doc.createElement( "clientip" );
+			message.appendChild( type );
+			message.appendChild( sn );
+			message.appendChild( clientip );
+			Text text = doc.createTextNode( Integer.toString( MessageTypes.HELLO_SERVER ) );
+			type.appendChild( text );
+			text = doc.createTextNode( screenName );
+			sn.appendChild( text );
+			text = doc.createTextNode( ipAddress );
+			clientip.appendChild( text );
+			
+			return sendServerMessage( doc );
+		} catch (Exception e)
+		{
+			return false;
+		}
+	}
+
+	static boolean sendServerMessage( Document document )
 	{
 		try
 		{
@@ -32,16 +64,18 @@ public abstract class JanusMessageService {
                 Element ipElement = ( Element )ipList.item( 0 );
 
                 NodeList textIPList = ipElement.getChildNodes();
-                System.out.println("IP Address: " + 
-                       ( ( Node )textIPList.item( 0 ) ).getNodeValue().trim() );
+                String IPAddress = ( ( Node )textIPList.item( 0 ) ).getNodeValue().trim();
 
                 //-------
                 NodeList portList = serverConfigs.getElementsByTagName( "port" );
                 Element portElement = ( Element )portList.item( 0 );
 
                 NodeList textPList = portElement.getChildNodes();
-                System.out.println( "Port: " + 
-                       ( ( Node )textPList.item( 0 ) ).getNodeValue().trim() );
+                String port = ( ( Node )textPList.item( 0 ) ).getNodeValue().trim();
+                
+                Socket s = new Socket( IPAddress, Integer.valueOf( port ) );
+                PrintWriter out = new PrintWriter( s.getOutputStream(), true );
+                out.println( document );
             }
 			return true;
 		}
@@ -52,10 +86,33 @@ public abstract class JanusMessageService {
 		}
 	}
 	
-	boolean sendClientMessage( String ClientIP, String message )
+	static boolean sendClientMessage( String ClientIP, String message ) throws IOException
 	{
+		Socket s = null;
+		PrintWriter out = null;
 		
-		return false;
+		try
+		{
+			s = new Socket( ClientIP, 999 );
+			out = new PrintWriter( s.getOutputStream(), true );
+			out.println( /* DOCUMENT */ );
+			return true;
+		}
+		catch( UnknownHostException e )
+		{
+			System.err.println( "Don't know about: " + ClientIP );
+			return false;
+		}
+		catch( IOException e )
+		{
+			System.err.println( "Couldn't get I/O for the connection to: " + ClientIP );
+			return false;
+		}
+		finally
+		{
+			out.close();
+			s.close();
+		}
 	}
 	
 }
