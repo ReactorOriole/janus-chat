@@ -6,14 +6,14 @@
 	<xsl:template match="/">
 		<xsl:for-each select="//conversation/time">
 			<p>
-				<xsl:attribute-set name="font">
+				<xsl:element name="font">
 					<xsl:attribute name="fname"><xsl:value-of
 						select="./preferences/@size" /></xsl:attribute>
 					<xsl:attribute name="size"><xsl:value-of
 						select="./preferences/@font" /></xsl:attribute>
 					<xsl:attribute name="color"><xsl:value-of
 						select="./preferences/@color" /></xsl:attribute>
-				</xsl:attribute-set>
+				</xsl:element>
 				<xsl:value-of select="./message/@sender" />
 				:
 				<xsl:value-of select="./message/@text" />
