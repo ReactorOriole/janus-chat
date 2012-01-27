@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buddylist>
+	<buddy name="Alice">
+		<ipaddress>192.168.1.1</ipaddress>
+		<status>Online</status>
+	</buddy>
+	<buddy name="Bob">
+		<ipaddress>192.168.1.2</ipaddress>
+		<status>Online</status>
+	</buddy>
+	<buddy name="Carl">
+		<ipaddress>192.168.1.3</ipaddress>
+		<status>Offline</status>
+	</buddy>
+	<buddy name="Doug">
+		<ipaddress>192.168.1.4</ipaddress>
+		<status>Away</status>
+	</buddy>
+	<buddy name="Erik">
+		<ipaddress>192.168.1.5</ipaddress>
+		<status>Away</status>
+	</buddy>
+	<buddy name="Fred">
+		<ipaddress>192.168.1.6</ipaddress>
+		<status>Online</status>
+	</buddy>
+</buddylist>
