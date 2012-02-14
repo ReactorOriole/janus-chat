@@ -135,4 +135,9 @@ public abstract class JanusMessageService {
 		}
 	}
 	
+	static void receiveMessages()
+	{
+		
+	}
+	
 }
