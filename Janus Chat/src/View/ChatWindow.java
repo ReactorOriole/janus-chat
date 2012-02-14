@@ -29,7 +29,7 @@ public class ChatWindow implements ActionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		Controller.JanusTransformer jt = new Controller.JanusTransformer("s", "s", "s");
+		//Controller.JanusTransformer jt = new Controller.JanusTransformer("s", "s", "s");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -96,6 +96,7 @@ public class ChatWindow implements ActionListener{
 		if(e.getActionCommand().equals("Send")){
 			try {
 				editorPane.setPage("../Model/ClientData/TextLog.xml");
+				editorPane.repaint();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
