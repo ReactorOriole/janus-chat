@@ -2,7 +2,9 @@ package Controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -75,8 +77,8 @@ public abstract class JanusMessageService {
                 String port = ( ( Node )textPList.item( 0 ) ).getNodeValue().trim();
                 
                 Socket s = new Socket( IPAddress, Integer.valueOf( port ) );
-                PrintWriter out = new PrintWriter( s.getOutputStream(), true );
-                out.println( document );
+                ObjectOutputStream out = new ObjectOutputStream( s.getOutputStream() );
+                out.writeObject( document );
             }
 			return true;
 		}
@@ -137,7 +139,28 @@ public abstract class JanusMessageService {
 	
 	static void receiveMessages()
 	{
+		// Default port number
+		int port = 2222;
+		ServerSocket serverSocket = null;
 		
+		try
+		{
+			serverSocket = new ServerSocket( port );
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		while( true )
+		{	
+			try {
+				Socket clientSocket = serverSocket.accept();
+				ReceiveThread thread = new ReceiveThread( clientSocket );
+				thread.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }
