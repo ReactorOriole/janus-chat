@@ -1,36 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?xml-stylesheet type="text/xsl" href="ChatLog.xsl"?>
-<conversation>		
+
+<conversation>
 	<time time="0:00:00">
-		<message text="Hello" sender="Alice"/>
-		<preferences font="Comic Sans MS" color="Red" size="7"/>
+		<message sender="Alice" text="Hello" />
+		<preferences color="Red" font="Comic Sans MS" size="7" />
 	</time>
 	<time time="0:01:00">
-		<message text="Hi" sender="Bob"/>
-		<preferences font="time times New Roman" color="Red" size="6"/>
+		<message sender="Bob" text="Hi" />
+		<preferences color="Red" font="time times New Roman" size="6" />
 	</time>
 	<time time="0:02:00">
-		<message text="Hows it going" sender="Alice"/>
-		<preferences font="Arial" color="Black" size="5"/>
+		<message sender="Alice" text="Hows it going" />
+		<preferences color="Black" font="Arial" size="5" />
 	</time>
 	<time time="0:03:00">
-		<message text="good, you?" sender="Bob"/>
-		<preferences font="Arial" color="Blue" size="4"/>
+		<message sender="Bob" text="good, you?" />
+		<preferences color="Blue" font="Arial" size="4" />
 	</time>
 	<time time="0:04:00">
-		<message text="not bad, do you like janus chat?" sender="Alice"/>
-		<preferences font="Arial" color="Green" size="3"/>
+		<message sender="Alice" text="not bad, do you like janus chat?" />
+		<preferences color="Green" font="Arial" size="3" />
 	</time>
 	<time time="0:05:00">
-		<message text="I do it is the best" sender="Bob"/>
-		<preferences font="Arial" color="Purple" size="2"/>
+		<message sender="Bob" text="I do it is the best" />
+		<preferences color="Purple" font="Arial" size="2" />
 	</time>
 	<time time="0:06:00">
-		<message text="I know, I wish I developed it" sender="Alice"/>
-		<preferences font="Arial" color="Orange" size="1"/>
+		<message sender="Alice" text="I know, I wish I developed it" />
+		<preferences color="Orange" font="Arial" size="1" />
 	</time>
 	<time time="0:07:00">
-		<message text="If you did I bet you would get an A in XML from Professor Liu" sender="Bob"/>
-		<preferences font="Arial" color="Blue" size="7"/>
+		<message sender="Bob"
+			text="If you did I bet you would get an A in XML from Professor Liu" />
+		<preferences color="Blue" font="Arial" size="7" />
+	</time>
+	<time time="00:40:58">
+		<message message="Bryant is a bromosexual" sender="The World, Bitch" />
+		<preferences color="Black" font="Times New Roman" size="12" />
+	</time>
+	<time time="00:41:57">
+		<message message="Bryant is a bromosexual" sender="The World, Bitch" />
+		<preferences color="Black" font="Times New Roman" size="12" />
 	</time>
 </conversation>

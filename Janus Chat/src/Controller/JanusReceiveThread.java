@@ -8,6 +8,12 @@ import java.util.Calendar;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -65,8 +71,8 @@ public class JanusReceiveThread extends Thread {
 					// create sender attribute
 					Attr senderAttribute = doc.createAttribute("sender");
 					senderAttribute.setValue( senderElement.getTextContent() );
-					message.setAttributeNode(msgAttribute);
 					message.setAttributeNode(senderAttribute);
+					message.setAttributeNode(msgAttribute);
 					time.appendChild(message);
 					// read text preferences
 					DocumentBuilderFactory docBuilderFactory1 = DocumentBuilderFactory
@@ -98,6 +104,17 @@ public class JanusReceiveThread extends Thread {
 					preferences.setAttributeNode(sizeAttr);
 					time.appendChild(preferences);
 					textLog.appendChild(time);
+
+					 // Prepare the DOM document for writing
+			        Source source = new DOMSource(doc);
+
+			        // Prepare the output file
+			        File file = new File( "src/Model/ClientData/TextLog.xml" );
+			        Result result = new StreamResult(file);
+			        
+			     // Write the DOM document to the file
+			        Transformer xformer = TransformerFactory.newInstance().newTransformer();
+			        xformer.transform(source, result);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
