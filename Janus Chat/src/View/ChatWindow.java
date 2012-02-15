@@ -115,7 +115,6 @@ public class ChatWindow implements ActionListener{
 							tFactory.newTransformer
 							(new javax.xml.transform.stream.StreamSource
 									(f2));
-					//System.out.println(jfc.getSelectedFile().toURL());
 					transformer.transform
 					(new javax.xml.transform.stream.StreamSource
 							(f3),
