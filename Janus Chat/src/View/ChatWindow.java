@@ -29,6 +29,7 @@ import javax.xml.transform.TransformerFactory;
 import org.w3c.dom.NodeList;
 
 import Controller.JanusProcessor;
+import Controller.JanusTransformer;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -131,26 +132,10 @@ public class ChatWindow implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("Send")){
-			try {
-				try {
-					File f2 = new File("src/Model/ClientData/ChatLog.xsl");
-					File f3 = new File("src/Model/ClientData/TextLog.xml");
-					TransformerFactory tFactory = TransformerFactory.newInstance();
-
-					Transformer transformer =
-							tFactory.newTransformer
-							(new javax.xml.transform.stream.StreamSource
-									(f2));
-					transformer.transform
-					(new javax.xml.transform.stream.StreamSource
-							(f3),
-							new javax.xml.transform.stream.StreamResult
-							( new FileOutputStream("testing.html")));
-				}
-				catch (Exception e1) {
-					e1.printStackTrace( );
-				}
-				File f = new File("testing.html");
+			try{
+				String s = "testing.html";
+				JanusTransformer jt = new JanusTransformer("src/Model/ClientData/TextLog.xsl", "src/Model/ClientData/ChatLog.xsl", s);
+				File f = new File(s);
 				editorPane.setPage(f.toURI().toURL());
 				editorPane.repaint();
 			} catch (Exception e1) {
