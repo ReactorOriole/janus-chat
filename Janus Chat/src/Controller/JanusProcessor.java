@@ -26,6 +26,7 @@ public class JanusProcessor {
 			
 		}
 	}
+	
 	public NodeList xpathQuery(String query){
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		XPathExpression expr;
