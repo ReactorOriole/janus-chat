@@ -14,7 +14,7 @@ import org.w3c.dom.*;
 
 public abstract class JanusMessageService {
 	
-	static boolean sendClientMessage( String ClientIP, String MyIP, String chatMessage ) throws IOException
+	static boolean sendMessage( String ClientIP, String MyIP, String chatMessage ) throws IOException
 	{
 		Socket s = null;
 		ObjectOutputStream out = null;
