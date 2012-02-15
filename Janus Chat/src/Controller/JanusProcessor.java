@@ -1,3 +1,5 @@
+package Controller;
+
 import org.w3c.dom.*;
 import javax.xml.xpath.*;
 import javax.xml.parsers.*;
@@ -6,16 +8,37 @@ import org.xml.sax.SAXException;
 
 public class JanusProcessor {
 	DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = domFactory.newDocumentBuilder();
+	DocumentBuilder builder = null;
 	Document doc =null;
+	
 	public JanusProcessor(String file){
-		domFactory.setNamespaceAware(true); 
-		Document doc = builder.parse(file);
+		domFactory.setNamespaceAware(true);
+		try {
+			builder = domFactory.newDocumentBuilder();
+			doc = builder.parse(file);
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e){
+			
+		}
 	}
 	public NodeList xpathQuery(String query){
 		XPath xpath = XPathFactory.newInstance().newXPath();
-		XPathExpression expr = xpath.compile(query);
-		Object result = expr.evaluate(doc, XPathConstants.NODESET);
+		XPathExpression expr;
+		Object result=null;
+		try {
+			expr = xpath.compile(query);
+			result = expr.evaluate(doc, XPathConstants.NODESET);
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		NodeList nodes = (NodeList) result;
+		return nodes;
 	}
 }
