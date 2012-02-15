@@ -2,6 +2,7 @@ package Controller;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -14,13 +15,15 @@ import org.w3c.dom.*;
 
 public abstract class JanusMessageService {
 	
-	static boolean sendMessage( String ClientIP, String MyIP, String chatMessage ) throws IOException
+	static boolean sendMessage( String ClientIP, String chatMessage ) throws IOException
 	{
 		Socket s = null;
 		ObjectOutputStream out = null;
 		
 		try
 		{
+			InetAddress addr = InetAddress.getLocalHost();
+			String myIP = addr.getHostAddress();
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			Document doc = docBuilder.newDocument();
@@ -31,7 +34,7 @@ public abstract class JanusMessageService {
 			Element chatText = doc.createElement( "chatMessage" );
 			message.appendChild( fromIP );
 			message.appendChild( chatText );
-			Text text = doc.createTextNode( MyIP );
+			Text text = doc.createTextNode( myIP );
 			fromIP.appendChild( text );
 			text = doc.createTextNode( chatMessage );
 			chatText.appendChild( text );
