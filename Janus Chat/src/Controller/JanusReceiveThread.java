@@ -15,11 +15,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class ReceiveThread extends Thread {
+public class JanusReceiveThread extends Thread {
 	
 	private Socket socket;
 	
-	public ReceiveThread( Socket socket )
+	public JanusReceiveThread( Socket socket )
 	{
 		this.socket = socket;
 	}

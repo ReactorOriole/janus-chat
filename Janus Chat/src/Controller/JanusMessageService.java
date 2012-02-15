@@ -155,7 +155,7 @@ public abstract class JanusMessageService {
 		{	
 			try {
 				Socket clientSocket = serverSocket.accept();
-				ReceiveThread thread = new ReceiveThread( clientSocket );
+				JanusReceiveThread thread = new JanusReceiveThread( clientSocket );
 				thread.start();
 			} catch (IOException e) {
 				e.printStackTrace();
