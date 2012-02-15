@@ -100,8 +100,7 @@ public class ChatWindow implements ActionListener{
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
 		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
-		JComboBox textCombo = new JComboBox();
-		textCombo.setModel(new DefaultComboBoxModel(al.toArray()));
+		JComboBox textCombo = new JComboBox( al.toArray() );
 		panel_2.add(textCombo);
 		
 		//sizes
@@ -110,8 +109,7 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
-		JComboBox sizeCombo = new JComboBox();
-		sizeCombo.setModel(new DefaultComboBoxModel(al.toArray()));
+		JComboBox sizeCombo = new JComboBox( al.toArray() );
 		panel_2.add(sizeCombo);
 		
 		//colors
@@ -120,8 +118,7 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
-		JComboBox colorCombo = new JComboBox();
-		sizeCombo.setModel(new DefaultComboBoxModel(al.toArray()));
+		JComboBox colorCombo = new JComboBox( al.toArray() );
 		panel_2.add(colorCombo);
 		
 		JScrollPane scrollPane = new JScrollPane();
