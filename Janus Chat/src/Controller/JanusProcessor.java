@@ -3,6 +3,8 @@ package Controller;
 import org.w3c.dom.*;
 import javax.xml.xpath.*;
 import javax.xml.parsers.*;
+
+import java.io.File;
 import java.io.IOException;
 import org.xml.sax.SAXException;
 
@@ -11,11 +13,11 @@ public class JanusProcessor {
 	DocumentBuilder builder = null;
 	Document doc =null;
 	
-	public JanusProcessor(String file){
+	public JanusProcessor(File file){
 		domFactory.setNamespaceAware(true);
 		try {
 			builder = domFactory.newDocumentBuilder();
-			doc = builder.parse(file);
+			doc = builder.parse(file.toURI().toString());
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -23,7 +25,7 @@ public class JanusProcessor {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e){
-			e.printStackTrace()
+			e.printStackTrace();
 		}
 	}
 	

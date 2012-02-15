@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JTextField;
@@ -24,6 +25,10 @@ import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
+
+import org.w3c.dom.NodeList;
+
+import Controller.JanusProcessor;
 
 import java.awt.FlowLayout;
 
@@ -86,15 +91,35 @@ public class ChatWindow implements ActionListener{
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
+		File f3 = new File("src/Model/ClientData/Fonts.xml");
+		JanusProcessor jp = new JanusProcessor(f3);
+		NodeList nodes = (NodeList)jp.xpathQuery("/font/fonts/font/text()");
+		ArrayList<String> al = new ArrayList<String>();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			System.out.println(nodes.item(i).getNodeValue());
+			 al.add(nodes.item(i).getNodeValue()); 
+		}
 		JComboBox textCombo = new JComboBox();
-		textCombo.setModel(new DefaultComboBoxModel(new String[] {"Arial", "Arial Black", "Comic Sans MS", "Courier New", "Georgia", "Impact", "Times New Roman", "Trebuchet MS", "Verdana"}));
+		textCombo.setModel(new DefaultComboBoxModel(al.toArray()));
 		panel_2.add(textCombo);
-
+		al.clear();
+		nodes = jp.xpathQuery("/font/sizes/size/text()");
+		for (int i = 0; i < nodes.getLength(); i++) {
+			 al.add(nodes.item(i).getNodeValue()); 
+		}
 		JComboBox sizeCombo = new JComboBox();
-		sizeCombo.setModel(new DefaultComboBoxModel(new String[] {"6", "8", "10", "12", "14", "16", "20", "24", "30", "36", "44"}));
-		sizeCombo.setSelectedIndex(2);
+		sizeCombo.setModel(new DefaultComboBoxModel(al.toArray()));
+		//sizeCombo.setSelectedIndex(2);
 		panel_2.add(sizeCombo);
 
+		
+		/*
+		for (int i = 0; i < nodes.getLength(); i++) {
+			 System.out.println(nodes.item(i).getNodeValue()); 
+			  }
+		*/
+		
+		
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 		editorPane = new JEditorPane();
@@ -128,7 +153,6 @@ public class ChatWindow implements ActionListener{
 				editorPane.setPage(f.toURI().toURL());
 				editorPane.repaint();
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
