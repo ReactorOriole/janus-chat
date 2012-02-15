@@ -31,6 +31,7 @@ import org.w3c.dom.NodeList;
 import Controller.JanusProcessor;
 
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 public class ChatWindow implements ActionListener{
 
@@ -89,19 +90,21 @@ public class ChatWindow implements ActionListener{
 
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.NORTH);
-		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
+		
+		//read all of the fonts/colors/sizes
 		File f3 = new File("src/Model/ClientData/Fonts.xml");
 		JanusProcessor jp = new JanusProcessor(f3);
 		NodeList nodes = (NodeList)jp.xpathQuery("/font/fonts/font/text()");
 		ArrayList<String> al = new ArrayList<String>();
 		for (int i = 0; i < nodes.getLength(); i++) {
-			System.out.println(nodes.item(i).getNodeValue());
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
+		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
 		JComboBox textCombo = new JComboBox();
 		textCombo.setModel(new DefaultComboBoxModel(al.toArray()));
 		panel_2.add(textCombo);
+		
+		//sizes
 		al.clear();
 		nodes = jp.xpathQuery("/font/sizes/size/text()");
 		for (int i = 0; i < nodes.getLength(); i++) {
@@ -109,16 +112,17 @@ public class ChatWindow implements ActionListener{
 		}
 		JComboBox sizeCombo = new JComboBox();
 		sizeCombo.setModel(new DefaultComboBoxModel(al.toArray()));
-		//sizeCombo.setSelectedIndex(2);
 		panel_2.add(sizeCombo);
-
 		
-		/*
+		//colors
+		al.clear();
+		nodes = jp.xpathQuery("/font/colors/color/text()");
 		for (int i = 0; i < nodes.getLength(); i++) {
-			 System.out.println(nodes.item(i).getNodeValue()); 
-			  }
-		*/
-		
+			 al.add(nodes.item(i).getNodeValue()); 
+		}
+		JComboBox colorCombo = new JComboBox();
+		sizeCombo.setModel(new DefaultComboBoxModel(al.toArray()));
+		panel_2.add(colorCombo);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
