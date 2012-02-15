@@ -1,9 +1,7 @@
 package Controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -14,85 +12,12 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.*;
 
-import Model.MessageTypes;
-
 public abstract class JanusMessageService {
-	
-	static boolean sendHelloServerMessage( String screenName, String ipAddress )
-	{
-		try {
-			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-			Document doc = docBuilder.newDocument();
-			
-			Element message = doc.createElement( "message" );
-			doc.appendChild( message );
-			Element type = doc.createElement( "type" );
-			Element sn = doc.createElement( "sn" );
-			Element clientip = doc.createElement( "clientip" );
-			message.appendChild( type );
-			message.appendChild( sn );
-			message.appendChild( clientip );
-			Text text = doc.createTextNode( Integer.toString( MessageTypes.HELLO_SERVER ) );
-			type.appendChild( text );
-			text = doc.createTextNode( screenName );
-			sn.appendChild( text );
-			text = doc.createTextNode( ipAddress );
-			clientip.appendChild( text );
-			
-			return sendServerMessage( doc );
-		} catch (Exception e)
-		{
-			return false;
-		}
-	}
-
-	static boolean sendServerMessage( Document document )
-	{
-		try
-		{
-			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-            Document doc = docBuilder.parse( new File( "src/Model/ServerConfigs.xml" ) );
-            
-            doc.getDocumentElement().normalize();
-            
-            Node server = doc.getElementsByTagName( "server" ).item( 0 );
-            if( server.getNodeType() == Node.ELEMENT_NODE )
-            {
-            	Element serverConfigs = ( Element )server;
-            	
-            	//-------
-                NodeList ipList = serverConfigs.getElementsByTagName( "ip" );
-                Element ipElement = ( Element )ipList.item( 0 );
-
-                NodeList textIPList = ipElement.getChildNodes();
-                String IPAddress = ( ( Node )textIPList.item( 0 ) ).getNodeValue().trim();
-
-                //-------
-                NodeList portList = serverConfigs.getElementsByTagName( "port" );
-                Element portElement = ( Element )portList.item( 0 );
-
-                NodeList textPList = portElement.getChildNodes();
-                String port = ( ( Node )textPList.item( 0 ) ).getNodeValue().trim();
-                
-                Socket s = new Socket( IPAddress, Integer.valueOf( port ) );
-                ObjectOutputStream out = new ObjectOutputStream( s.getOutputStream() );
-                out.writeObject( document );
-            }
-			return true;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-			return false;
-		}
-	}
 	
 	static boolean sendClientMessage( String ClientIP, String MyIP, String chatMessage ) throws IOException
 	{
 		Socket s = null;
-		PrintWriter out = null;
+		ObjectOutputStream out = null;
 		
 		try
 		{
@@ -111,9 +36,9 @@ public abstract class JanusMessageService {
 			text = doc.createTextNode( chatMessage );
 			chatText.appendChild( text );
 			
-			s = new Socket( ClientIP, 999 );
-			out = new PrintWriter( s.getOutputStream(), true );
-			out.println( doc );
+			s = new Socket( ClientIP, 2222 );
+			out = new ObjectOutputStream( s.getOutputStream() );
+			out.writeObject( doc );
 			return true;
 		}
 		catch( UnknownHostException e )
