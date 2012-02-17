@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 
 public class JanusUpdater {
 	//font size color
-	public void update(String node, String value){
+	public static void update(String node, String value){
 		try{
 			String filepath = "src/Model/ClientData/TextPreferences.xml";
 			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
