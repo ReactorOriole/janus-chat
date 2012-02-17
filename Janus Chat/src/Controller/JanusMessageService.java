@@ -79,8 +79,12 @@ public class JanusMessageService {
 			e.printStackTrace();
 			return false;
 		} finally {
-			out.close();
-			s.close();
+			if (out != null) {
+				out.close();
+			}
+			if (s != null) {
+				s.close();
+			}
 		}
 	}
 
