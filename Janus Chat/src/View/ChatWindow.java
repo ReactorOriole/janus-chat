@@ -134,7 +134,7 @@ public class ChatWindow implements ActionListener{
 		if(e.getActionCommand().equals("Send")){
 			try{
 				String s = "testing.html";
-				JanusTransformer jt = new JanusTransformer("src/Model/ClientData/TextLog.xsl", "src/Model/ClientData/ChatLog.xsl", s);
+				JanusTransformer jt = new JanusTransformer("src/Model/ClientData/TextLog.xml", "src/Model/ClientData/ChatLog.xsl", s);
 				File f = new File(s);
 				editorPane.setPage(f.toURI().toURL());
 				editorPane.repaint();
