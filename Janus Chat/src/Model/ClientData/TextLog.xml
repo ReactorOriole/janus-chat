@@ -40,4 +40,20 @@
 		<message message="Bryant is a bromosexual" sender="The World, Bitch"/>
 		<preferences color="Black" font="Times New Roman" size="12"/>
 	</time>
-<time time="15:16:14"><message message="hi" sender="&#10;&#9;&#9;Alice&#10;&#9;"/><preferences color="Orange" font="Courier New" size="5"/></time></conversation>
+	<time time="15:16:14">
+		<message message="hi" sender="&#10;&#9;&#9;Alice&#10;&#9;"/>
+		<preferences color="Orange" font="Courier New" size="5"/>
+	</time>
+	<time time="15:18:56">
+		<message message="" sender="&#10;&#9;&#9;Alice&#10;&#9;"/>
+		<preferences color="Orange" font="Courier New" size="5"/>
+	</time>
+	<time time="15:26:50">
+		<message message="hi" sender="&#10;&#9;&#9;Alice&#10;&#9;"/>
+		<preferences color="Orange" font="Courier New" size="5"/>
+	</time>
+	<time time="15:30:07">
+		<message message="jared is gay with erik" sender="&#10;&#9;&#9;Erik is gay&#10;&#9;"/>
+		<preferences color="Orange" font="Courier New" size="5"/>
+	</time>
+<time time="15:33:25"><message message="" sender="&#10;&#9;&#9;Erik is gay&#10;&#9;"/><preferences color="Orange" font="Courier New" size="5"/></time><time time="15:35:05"><message message=" " sender="&#10;&#9;&#9;Erik is gay&#10;&#9;"/><preferences color="Orange" font="Courier New" size="5"/></time><time time="15:42:56"><message message="hello" sender="&#10;&#9;&#9;Erik is gay&#10;&#9;"/><preferences color="Orange" font="Courier New" size="5"/></time></conversation>

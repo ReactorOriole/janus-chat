@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -144,6 +146,14 @@ public class ChatWindow implements ActionListener{
 		});	
 		panel_2.add(colorCombo);
 		
+		//add enter key listener so we send a message when enter is pressed
+		sendTextField.addKeyListener(new KeyAdapter(){ 		
+			public void keyPressed(KeyEvent e){ 
+				if ((int)e.getKeyChar()==10) 
+					sendMessage();
+			} 
+		});
+		
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
 		editorPane = new JEditorPane();
@@ -153,17 +163,18 @@ public class ChatWindow implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("UpdateWindow")){
-			updateWindow();
-		}
 		if(e.getActionCommand().equals("Send")){
-			try {
-				JanusMessageService.sendMessage(sendTextField.getText());
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			updateWindow();
+			sendMessage();
 		}
+	}
+
+	private void sendMessage() {
+		try {
+			JanusMessageService.sendMessage(sendTextField.getText());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		updateWindow();		
 	}
 
 	public static void updateWindow() {
