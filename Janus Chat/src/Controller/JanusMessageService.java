@@ -1,5 +1,6 @@
 package Controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
@@ -13,17 +14,28 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.*;
 
-public abstract class JanusMessageService {
+public class JanusMessageService {
 	
-	static boolean sendMessage( String ClientIP, String chatMessage ) throws IOException
+	static boolean sendMessage( String chatMessage ) throws IOException
 	{
 		Socket s = null;
 		ObjectOutputStream out = null;
+		String clientIP = null;
 		
 		try
 		{
+			// Retrieve network specific information for sockets
 			InetAddress addr = InetAddress.getLocalHost();
 			String myIP = addr.getHostAddress();
+			
+			JanusProcessor jp = new JanusProcessor( new File( "src/Model/ClientConfigs.xml" ) );
+			NodeList nodes = ( NodeList )jp.xpathQuery( "/client/ip/text()" );
+			clientIP = nodes.item( 0 ).getNodeValue();
+			
+			nodes = ( NodeList )jp.xpathQuery( "/client/port/text()" );
+			int port = Integer.valueOf( nodes.item( 0 ).getNodeValue() ).intValue();
+			
+			// Create XML message to be sent
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			Document doc = docBuilder.newDocument();
@@ -39,19 +51,19 @@ public abstract class JanusMessageService {
 			text = doc.createTextNode( chatMessage );
 			chatText.appendChild( text );
 			
-			s = new Socket( ClientIP, 2222 );
+			s = new Socket( clientIP, port );
 			out = new ObjectOutputStream( s.getOutputStream() );
 			out.writeObject( doc );
 			return true;
 		}
 		catch( UnknownHostException e )
 		{
-			System.err.println( "Don't know about: " + ClientIP );
+			System.err.println( "Don't know about: " + clientIP );
 			return false;
 		}
 		catch( IOException e )
 		{
-			System.err.println( "Couldn't get I/O for the connection to: " + ClientIP );
+			System.err.println( "Couldn't get I/O for the connection to: " + clientIP );
 			return false;
 		} catch (ParserConfigurationException e)
 		{
@@ -68,7 +80,9 @@ public abstract class JanusMessageService {
 	static void receiveMessages()
 	{
 		// Default port number
-		int port = 2222;
+		JanusProcessor jp = new JanusProcessor( new File( "src/Model/ClientConfigs.xml" ) );
+		NodeList nodes = ( NodeList )jp.xpathQuery( "/client/port/text()" );
+		int port = Integer.valueOf( nodes.item( 0 ).getNodeValue() ).intValue();
 		ServerSocket serverSocket = null;
 		
 		try
