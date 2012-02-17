@@ -9,7 +9,7 @@ public class JanusTransformer {
 	String xmlFile;
 	String xslFile;
 	String htmlFile;
-	public JanusTransformer(String xmlFile, String xslFile, String htmlFile){
+	static public boolean transform(String xmlFile, String xslFile, String htmlFile){
 		try {
 			File f2 = new File(xslFile);
 			File f3 = new File(xmlFile);
@@ -24,9 +24,11 @@ public class JanusTransformer {
 					(f3),
 					new javax.xml.transform.stream.StreamResult
 					( new FileOutputStream(htmlFile)));
+			return true;
 		}
 		catch (Exception e1) {
 			e1.printStackTrace( );
+			return false;
 		}
 	}
 
