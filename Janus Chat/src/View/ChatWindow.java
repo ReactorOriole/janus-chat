@@ -39,10 +39,10 @@ public class ChatWindow implements ActionListener{
 
 	private JFrame frmChatWindow;
 	private JTextField sendTextField;
-	private JEditorPane editorPane= null;
-	private final String TEXTLOG = "src/Model/ClientData/TextLog.xml";
-	private final String XSLFILE = "src/Model/ClientData/ChatLog.xsl";
-	private final String TEMPFILE = "temp.html";
+	private static JEditorPane editorPane= null;
+	private final static String TEXTLOG = "src/Model/ClientData/TextLog.xml";
+	private final static String XSLFILE = "src/Model/ClientData/ChatLog.xsl";
+	private final static String TEMPFILE = "temp.html";
 	private final String FONTFILE = "src/Model/ClientData/Fonts.xml";
 
 	/**
@@ -155,11 +155,10 @@ public class ChatWindow implements ActionListener{
 		}
 	}
 
-	private void updateWindow() {
+	public static void updateWindow() {
 		try{
-			String s = "testing.html";
 			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
-			File f = new File(s);
+			File f = new File(TEMPFILE);
 			editorPane.setPage(f.toURI().toURL());
 			editorPane.repaint();
 		} catch (Exception e1) {
