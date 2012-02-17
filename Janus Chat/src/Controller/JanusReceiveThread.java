@@ -75,35 +75,26 @@ public class JanusReceiveThread extends Thread {
 					message.setAttributeNode(msgAttribute);
 					time.appendChild(message);
 					// read text preferences
-					DocumentBuilderFactory docBuilderFactory1 = DocumentBuilderFactory
-							.newInstance();
-					DocumentBuilder docBuilder1 = docBuilderFactory1
-							.newDocumentBuilder();
-					Document prefDoc = docBuilder1.parse(new File(
-							"src/Model/ClientData/TextPreferences.xml"));
-					prefDoc.getDocumentElement().normalize();
-					Node prefs = prefDoc.getElementsByTagName("defaults").item(
-							0);
-					Element pref = (Element) prefs;
-					NodeList fontList = pref.getElementsByTagName("font");
-					Element fontElement = (Element) fontList.item(0);
-					NodeList sizeList = pref.getElementsByTagName("size");
-					Element sizeElement = (Element) sizeList.item(0);
-					NodeList colorList = pref.getElementsByTagName("color");
-					Element colorElement = (Element) colorList.item(0);
+					JanusProcessor jp = new JanusProcessor( new File( "src/Model/ClientData/TextPreferences.xml" ) );
+					NodeList nodes = ( NodeList )jp.xpathQuery( "/defaults/font/text()" );
+					String font = nodes.item( 0 ).getNodeValue();
+					nodes = ( NodeList )jp.xpathQuery( "/defaults/size/text()" );
+					String size = nodes.item( 0 ).getNodeValue();
+					nodes = ( NodeList )jp.xpathQuery( "/defaults/color/text()" );
+					String color = nodes.item( 0 ).getNodeValue();
 					// create preferences element
-					Element preferences = doc.createElement("preferences");
-					Attr fontAttr = doc.createAttribute("font");
-					fontAttr.setValue(fontElement.getTextContent());
-					preferences.setAttributeNode(fontAttr);
-					Attr colorAttr = doc.createAttribute("color");
-					colorAttr.setValue(colorElement.getTextContent());
-					preferences.setAttributeNode(colorAttr);
-					Attr sizeAttr = doc.createAttribute("size");
-					sizeAttr.setValue(sizeElement.getTextContent());
-					preferences.setAttributeNode(sizeAttr);
-					time.appendChild(preferences);
-					textLog.appendChild(time);
+					Element preferences = doc.createElement( "preferences" );
+					Attr fontAttr = doc.createAttribute( "font" );
+					fontAttr.setValue( font );
+					preferences.setAttributeNode( fontAttr );
+					Attr colorAttr = doc.createAttribute( "color" );
+					colorAttr.setValue( color );
+					preferences.setAttributeNode( colorAttr );
+					Attr sizeAttr = doc.createAttribute( "size" );
+					sizeAttr.setValue( size );
+					preferences.setAttributeNode( sizeAttr );
+					time.appendChild( preferences );
+					textLog.appendChild( time );
 
 					 // Prepare the DOM document for writing
 			        Source source = new DOMSource(doc);
