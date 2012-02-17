@@ -16,7 +16,7 @@ import org.w3c.dom.*;
 
 public class JanusMessageService {
 	
-	static boolean sendMessage( String chatMessage ) throws IOException
+	public static boolean sendMessage( String chatMessage ) throws IOException
 	{
 		Socket s = null;
 		ObjectOutputStream out = null;
@@ -77,7 +77,7 @@ public class JanusMessageService {
 		}
 	}
 	
-	static void receiveMessages()
+	public static void receiveMessages()
 	{
 		// Default port number
 		JanusProcessor jp = new JanusProcessor( new File( "src/Model/ClientConfigs.xml" ) );
