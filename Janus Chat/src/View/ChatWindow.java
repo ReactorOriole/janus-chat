@@ -135,7 +135,7 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
-		//add actionlistener to combobox
+		//add actionlistener to combo
 		JComboBox colorCombo = new JComboBox(al.toArray() );
 		colorCombo.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
