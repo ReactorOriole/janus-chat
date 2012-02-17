@@ -4,35 +4,25 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-
 import org.w3c.dom.NodeList;
 
 import Controller.JanusMessageService;
 import Controller.JanusProcessor;
 import Controller.JanusTransformer;
+import Controller.JanusUpdater;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 public class ChatWindow implements ActionListener{
@@ -109,8 +99,15 @@ public class ChatWindow implements ActionListener{
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
 		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
+		//add actionlistener and update the preferences file
 		JComboBox textCombo = new JComboBox( al.toArray() );
-		textCombo.addActionListener(this);
+		textCombo.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox cb = (JComboBox)e.getSource();
+		        String font = (String)cb.getSelectedItem();
+		        JanusUpdater.update("font", font);
+		    }
+		});		
 		panel_2.add(textCombo);
 		
 		//sizes
@@ -119,8 +116,15 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
+		//add actionlistener
 		JComboBox sizeCombo = new JComboBox( al.toArray() );
-		sizeCombo.addActionListener(this);
+		sizeCombo.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox cb = (JComboBox)e.getSource();
+		        String size = (String)cb.getSelectedItem();
+		        JanusUpdater.update("size", size);
+		    }
+		});	
 		panel_2.add(sizeCombo);
 		
 		//colors
@@ -129,8 +133,15 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
+		//add actionlistener to combobox
 		JComboBox colorCombo = new JComboBox(al.toArray() );
-		colorCombo.addActionListener(this);
+		colorCombo.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        JComboBox cb = (JComboBox)e.getSource();
+		        String color = (String)cb.getSelectedItem();
+		        JanusUpdater.update("color", color);
+		    }
+		});	
 		panel_2.add(colorCombo);
 		
 		JScrollPane scrollPane = new JScrollPane();
