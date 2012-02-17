@@ -49,7 +49,7 @@ public class JanusLogUpdater {
 		time.setAttributeNode(timeAttribute);
 		// create message attribute
 		Element messageElement = doc.createElement("message");
-		Attr msgAttribute = doc.createAttribute("message");
+		Attr msgAttribute = doc.createAttribute("text");
 		msgAttribute.setValue(message);
 		// create sender attribute
 		Attr senderAttribute = doc.createAttribute("sender");
