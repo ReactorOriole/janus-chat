@@ -54,16 +54,16 @@ public class ChatWindow implements ActionListener{
 	 * Create the application.
 	 */
 	public ChatWindow() {
-		run();
 		initialize();
+		run();
+		
 	}
 
 	private void run() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChatWindow window = new ChatWindow();
-					window.frmChatWindow.setVisible(true);
+					frmChatWindow.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
