@@ -102,6 +102,7 @@ public class JanusMessageService {
 			e.printStackTrace();
 		}
 
+		// TODO: put the following in a new thread
 		while (true) {
 			try {
 				Socket clientSocket = serverSocket.accept();
