@@ -28,6 +28,7 @@ import javax.xml.transform.TransformerFactory;
 
 import org.w3c.dom.NodeList;
 
+import Controller.JanusMessageService;
 import Controller.JanusProcessor;
 import Controller.JanusTransformer;
 
@@ -39,11 +40,25 @@ public class ChatWindow implements ActionListener{
 	private JFrame frmChatWindow;
 	private JTextField sendTextField;
 	private JEditorPane editorPane= null;
+	private final String TEXTLOG = "src/Model/ClientData/TextLog.xml";
+	private final String XSLFILE = "src/Model/ClientData/ChatLog.xsl";
+	private final String TEMPFILE = "temp.html";
+	private final String FONTFILE = "src/Model/ClientData/Fonts.xml";
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+
+
+	/**
+	 * Create the application.
+	 */
+	public ChatWindow() {
+		run();
+		initialize();
+	}
+
+	private void run() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,14 +68,7 @@ public class ChatWindow implements ActionListener{
 					e.printStackTrace();
 				}
 			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public ChatWindow() {
-		initialize();
+		});		
 	}
 
 	/**
@@ -93,7 +101,7 @@ public class ChatWindow implements ActionListener{
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
 		//read all of the fonts/colors/sizes
-		File f3 = new File("src/Model/ClientData/Fonts.xml");
+		File f3 = new File(FONTFILE);
 		JanusProcessor jp = new JanusProcessor(f3);
 		NodeList nodes = (NodeList)jp.xpathQuery("/font/fonts/font/text()");
 		ArrayList<String> al = new ArrayList<String>();
@@ -102,6 +110,7 @@ public class ChatWindow implements ActionListener{
 		}
 		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
 		JComboBox textCombo = new JComboBox( al.toArray() );
+		textCombo.addActionListener(this);
 		panel_2.add(textCombo);
 		
 		//sizes
@@ -111,6 +120,7 @@ public class ChatWindow implements ActionListener{
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
 		JComboBox sizeCombo = new JComboBox( al.toArray() );
+		sizeCombo.addActionListener(this);
 		panel_2.add(sizeCombo);
 		
 		//colors
@@ -119,7 +129,8 @@ public class ChatWindow implements ActionListener{
 		for (int i = 0; i < nodes.getLength(); i++) {
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
-		JComboBox colorCombo = new JComboBox( al.toArray() );
+		JComboBox colorCombo = new JComboBox(al.toArray() );
+		colorCombo.addActionListener(this);
 		panel_2.add(colorCombo);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -131,16 +142,28 @@ public class ChatWindow implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("UpdateWindow")){
+			updateWindow();
+		}
 		if(e.getActionCommand().equals("Send")){
-			try{
-				String s = "testing.html";
-				JanusTransformer jt = new JanusTransformer("src/Model/ClientData/TextLog.xml", "src/Model/ClientData/ChatLog.xsl", s);
-				File f = new File(s);
-				editorPane.setPage(f.toURI().toURL());
-				editorPane.repaint();
-			} catch (Exception e1) {
+			try {
+				JanusMessageService.sendMessage(sendTextField.getText());
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+			updateWindow();
 		}
+	}
+
+	private void updateWindow() {
+		try{
+			String s = "testing.html";
+			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
+			File f = new File(s);
+			editorPane.setPage(f.toURI().toURL());
+			editorPane.repaint();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}		
 	}
 }
