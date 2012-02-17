@@ -35,6 +35,7 @@ public class ChatWindow implements ActionListener{
 	private final static String TEXTLOG = "src/Model/ClientData/TextLog.xml";
 	private final static String XSLFILE = "src/Model/ClientData/ChatLog.xsl";
 	private final static String TEMPFILE = "temp.html";
+	private static final String PREFFILE = "src/Model/ClientData/TextPreferences.xml";
 	private final String FONTFILE = "src/Model/ClientData/Fonts.xml";
 
 	/**
@@ -92,6 +93,10 @@ public class ChatWindow implements ActionListener{
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
+		//get the user preferences to set the default on the combo box(s)
+		ArrayList s = new ArrayList<String>();
+		s = getComboPreferences();
+		
 		//read all of the fonts/colors/sizes
 		File f3 = new File(FONTFILE);
 		JanusProcessor jp = new JanusProcessor(f3);
@@ -101,6 +106,7 @@ public class ChatWindow implements ActionListener{
 			 al.add(nodes.item(i).getNodeValue()); 
 		}
 		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
+		
 		//add actionlistener and update the preferences file
 		JComboBox textCombo = new JComboBox( al.toArray() );
 		textCombo.addActionListener(new ActionListener() {
@@ -109,7 +115,9 @@ public class ChatWindow implements ActionListener{
 		        String font = (String)cb.getSelectedItem();
 		        JanusUpdater.update("font", font);
 		    }
-		});		
+		});
+		System.out.println(s.get(0));
+		textCombo.setSelectedItem(s.get(0));
 		panel_2.add(textCombo);
 		
 		//sizes
@@ -127,6 +135,7 @@ public class ChatWindow implements ActionListener{
 		        JanusUpdater.update("size", size);
 		    }
 		});	
+		sizeCombo.setSelectedItem(s.get(1));
 		panel_2.add(sizeCombo);
 		
 		//colors
@@ -144,6 +153,7 @@ public class ChatWindow implements ActionListener{
 		        JanusUpdater.update("color", color);
 		    }
 		});	
+		colorCombo.setSelectedItem(s.get(2));
 		panel_2.add(colorCombo);
 		
 		//add enter key listener so we send a message when enter is pressed
@@ -156,10 +166,24 @@ public class ChatWindow implements ActionListener{
 		
 		JScrollPane scrollPane = new JScrollPane();
 		panel.add(scrollPane, BorderLayout.CENTER);
+		JanusMessageService.receiveMessages();
 		editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
 		scrollPane.setViewportView(editorPane);
+	}
+
+	private ArrayList<String> getComboPreferences() {
+		//setting up the queries to get the user prefs
+		JanusProcessor jp = new JanusProcessor(new File(PREFFILE));
+		NodeList nodes = (NodeList)jp.xpathQuery("/defaults/font/text()");
+		ArrayList<String> al = new ArrayList<String>();
+		 al.add(nodes.item(0).getNodeValue()); 
+		 nodes = (NodeList)jp.xpathQuery("/defaults/size/text()");
+		 al.add(nodes.item(0).getNodeValue());
+		 nodes = (NodeList)jp.xpathQuery("/defaults/color/text()");
+		 al.add(nodes.item(0).getNodeValue());
+		return al;
 	}
 
 	public void actionPerformed(ActionEvent e) {
