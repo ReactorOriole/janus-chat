@@ -89,29 +89,38 @@ public class JanusMessageService {
 	}
 
 	public static void receiveMessages() {
-		// Default port number
-		JanusProcessor jp = new JanusProcessor(new File(
-				"src/Model/ClientConfigs.xml"));
-		NodeList nodes = (NodeList) jp.xpathQuery("/client/port/text()");
-		int port = Integer.valueOf(nodes.item(0).getNodeValue()).intValue();
-		ServerSocket serverSocket = null;
 
-		try {
-			serverSocket = new ServerSocket(port);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Thread thread = new Thread() {
+			public void run() {
+				// Default port number
+				JanusProcessor jp = new JanusProcessor(new File(
+						"src/Model/ClientConfigs.xml"));
+				NodeList nodes = (NodeList) jp
+						.xpathQuery("/client/port/text()");
+				int port = Integer.valueOf(nodes.item(0).getNodeValue())
+						.intValue();
 
-		// TODO: put the following in a new thread
-		while (true) {
-			try {
-				Socket clientSocket = serverSocket.accept();
-				JanusReceiveThread thread = new JanusReceiveThread(clientSocket);
-				thread.start();
-			} catch (IOException e) {
-				e.printStackTrace();
+				ServerSocket serverSocket = null;
+
+				try {
+					serverSocket = new ServerSocket(port);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				while (true) {
+					try {
+						Socket clientSocket = serverSocket.accept();
+						JanusReceiveThread thread = new JanusReceiveThread(
+								clientSocket);
+						thread.start();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-		}
-	}
+		};
 
+		thread.start();
+
+	}
 }
