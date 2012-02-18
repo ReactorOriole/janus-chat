@@ -116,7 +116,6 @@ public class ChatWindow implements ActionListener{
 		        JanusUpdater.update("font", font);
 		    }
 		});
-		System.out.println(s.get(0));
 		textCombo.setSelectedItem(s.get(0));
 		panel_2.add(textCombo);
 		
