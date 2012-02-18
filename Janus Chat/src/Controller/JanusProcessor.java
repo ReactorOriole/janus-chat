@@ -9,9 +9,9 @@ import java.io.IOException;
 import org.xml.sax.SAXException;
 
 public class JanusProcessor {
-	DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = null;
-	Document doc =null;
+	private DocumentBuilderFactory domFactory = DocumentBuilderFactory.newInstance();
+	private DocumentBuilder builder = null;
+	private Document doc =null;
 	
 	public JanusProcessor(File file){
 		domFactory.setNamespaceAware(true);
