@@ -165,13 +165,13 @@ public class ChatWindow implements ActionListener{
 			} 
 		});
 		
-		JScrollPane scrollPane = new JScrollPane();
-		panel.add(scrollPane, BorderLayout.CENTER);
 		JanusMessageService.receiveMessages();
 		editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
-		scrollPane.setViewportView(editorPane);
+		JScrollPane scrollPane = new JScrollPane(editorPane);
+		panel.add(scrollPane, BorderLayout.CENTER);
+		updateWindow();
 	}
 
 	private ArrayList<String> getComboPreferences() {
