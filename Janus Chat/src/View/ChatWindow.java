@@ -1,14 +1,10 @@
 package View;
 
-import java.awt.EventQueue;
-import java.awt.Rectangle;
-
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
@@ -17,11 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JTextField;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.text.BadLocationException;
+import javax.swing.JTextField;
 import javax.swing.text.Document;
 
 import org.w3c.dom.NodeList;
@@ -30,8 +28,6 @@ import Controller.JanusMessageService;
 import Controller.JanusProcessor;
 import Controller.JanusTransformer;
 import Controller.JanusUpdater;
-
-import java.awt.GridLayout;
 
 public class ChatWindow implements ActionListener{
 
@@ -101,7 +97,7 @@ public class ChatWindow implements ActionListener{
 		panel_1.add(panel_2, BorderLayout.NORTH);
 
 		//get the user preferences to set the default on the combo box(s)
-		ArrayList s = new ArrayList<String>();
+		ArrayList<String> s = new ArrayList<String>();
 		s = getComboPreferences();
 
 		//read all of the fonts/colors/sizes
@@ -180,7 +176,14 @@ public class ChatWindow implements ActionListener{
 				editorPane.select(editorPane.getHeight()+1000,0);
 			}});
 		panel.add(scrollPane, BorderLayout.CENTER);
-		updateWindow();
+		try{
+			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
+			File f = new File(TEMPFILE);
+			editorPane.setPage(f.toURI().toURL());					
+			
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	private ArrayList<String> getComboPreferences() {
@@ -212,21 +215,18 @@ public class ChatWindow implements ActionListener{
 	}
 
 	public static void updateWindow() {
+		try{
+			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
+			File f = new File(TEMPFILE);
+			editorPane.setPage(f.toURI().toURL());					
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		} 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				try{
-					
-					JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
-					File f = new File(TEMPFILE);
-					editorPane.setPage(f.toURI().toURL());
-					Thread.sleep(35);
-					Document doc = editorPane.getDocument();
-					doc.putProperty(Document.StreamDescriptionProperty, null);
-					//editorPane.repaint();
-					
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}  
+				Document doc = editorPane.getDocument();
+				doc.putProperty(Document.StreamDescriptionProperty, null);
+
 			}
 		});
 
