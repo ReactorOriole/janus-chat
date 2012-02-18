@@ -53,7 +53,29 @@ public class JanusMessageService {
 			text = doc.createTextNode(chatMessage);
 			chatText.appendChild(text);
 
-			JanusLogUpdater.update(name, chatMessage);
+			jp = new JanusProcessor(new File(
+					"src/Model/ClientData/TextPreferences.xml"));
+			nodes = jp.xpathQuery("/defaults/font/text()");
+			String font = nodes.item(0).getNodeValue();
+			nodes = jp.xpathQuery("/defaults/size/text()");
+			String size = nodes.item(0).getNodeValue();
+			nodes = jp.xpathQuery("/defaults/color/text()");
+			String color = nodes.item(0).getNodeValue();
+
+			// create preferences element
+			Element preferences = doc.createElement("preferences");
+			Attr fontAttr = doc.createAttribute("font");
+			fontAttr.setValue(font);
+			preferences.setAttributeNode(fontAttr);
+			Attr colorAttr = doc.createAttribute("color");
+			colorAttr.setValue(color);
+			preferences.setAttributeNode(colorAttr);
+			Attr sizeAttr = doc.createAttribute("size");
+			sizeAttr.setValue(size);
+			preferences.setAttributeNode(sizeAttr);
+			message.appendChild(preferences);
+
+			JanusLogUpdater.update(name, chatMessage, font, color, size);
 
 			s = new Socket(clientIP, port);
 			out = new ObjectOutputStream(s.getOutputStream());

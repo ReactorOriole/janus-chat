@@ -4,7 +4,6 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class JanusReceiveThread extends Thread {
@@ -33,8 +32,20 @@ public class JanusReceiveThread extends Thread {
 						.xpathQuery("/message/sn/text()")).item(0)
 						.getTextContent();
 
+				String font = (String) ((NodeList) jp
+						.xpathQuery("/message/preferences/@font")).item(0)
+						.getTextContent();
+
+				String color = (String) ((NodeList) jp
+						.xpathQuery("/message/preferences/@color")).item(0)
+						.getTextContent();
+
+				String size = (String) ((NodeList) jp
+						.xpathQuery("/message/preferences/@size")).item(0)
+						.getTextContent();
+
 				// Update text log
-				JanusLogUpdater.update(sender, chatMessage);
+				JanusLogUpdater.update(sender, chatMessage, font, color, size);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

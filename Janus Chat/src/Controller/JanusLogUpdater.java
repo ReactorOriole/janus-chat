@@ -21,16 +21,16 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import View.ChatWindow;
 
 public class JanusLogUpdater {
 
-	public static void update(String sender, String message)
-			throws ParserConfigurationException, SAXException, IOException,
-			TransformerFactoryConfigurationError, TransformerException {
+	public static void update(String sender, String message, String font,
+			String color, String size) throws ParserConfigurationException,
+			SAXException, IOException, TransformerFactoryConfigurationError,
+			TransformerException {
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory
 				.newInstance();
 		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
@@ -57,15 +57,7 @@ public class JanusLogUpdater {
 		messageElement.setAttributeNode(senderAttribute);
 		messageElement.setAttributeNode(msgAttribute);
 		time.appendChild(messageElement);
-		// read text preferences
-		JanusProcessor jp = new JanusProcessor(new File(
-				"src/Model/ClientData/TextPreferences.xml"));
-		NodeList nodes = jp.xpathQuery("/defaults/font/text()");
-		String font = nodes.item(0).getNodeValue();
-		nodes = jp.xpathQuery("/defaults/size/text()");
-		String size = nodes.item(0).getNodeValue();
-		nodes = jp.xpathQuery("/defaults/color/text()");
-		String color = nodes.item(0).getNodeValue();
+
 		// create preferences element
 		Element preferences = doc.createElement("preferences");
 		Attr fontAttr = doc.createAttribute("font");
