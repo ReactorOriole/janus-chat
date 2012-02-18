@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.EventQueue;
+import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import org.w3c.dom.NodeList;
@@ -33,6 +35,7 @@ public class ChatWindow implements ActionListener{
 
 	private JFrame frmChatWindow;
 	private JTextField sendTextField;
+	private JScrollPane scrollPane;
 	private static JEditorPane editorPane= null;
 	private final static String TEXTLOG = "src/Model/ClientData/TextLog.xml";
 	private final static String XSLFILE = "src/Model/ClientData/ChatLog.xsl";
@@ -169,7 +172,7 @@ public class ChatWindow implements ActionListener{
 		editorPane = new JEditorPane();
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
-		JScrollPane scrollPane = new JScrollPane(editorPane);
+		scrollPane = new JScrollPane(editorPane);
 		panel.add(scrollPane, BorderLayout.CENTER);
 		updateWindow();
 	}
@@ -200,7 +203,6 @@ public class ChatWindow implements ActionListener{
 			e1.printStackTrace();
 		}
 		sendTextField.setText("");
-		updateWindow();		
 	}
 
 	public static void updateWindow() {
