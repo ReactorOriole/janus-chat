@@ -1,43 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><?xml-stylesheet type="text/xsl" href="ChatLog.xsl"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="ChatLog.xsl"?>
 <conversation>
-	<time time="0:00:00">
-		<message sender="Alice" text="Hello"/>
-		<preferences color="Red" font="Comic Sans MS" size="7"/>
-	</time>
-	<time time="0:01:00">
-		<message sender="Bob" text="Hi"/>
-		<preferences color="Red" font="time times New Roman" size="6"/>
-	</time>
-	<time time="0:02:00">
-		<message sender="Alice" text="Hows it going"/>
-		<preferences color="Black" font="Arial" size="5"/>
-	</time>
-	<time time="0:03:00">
-		<message sender="Bob" text="good, you?"/>
-		<preferences color="Blue" font="Arial" size="4"/>
-	</time>
-	<time time="0:04:00">
-		<message sender="Alice" text="not bad, do you like janus chat?"/>
-		<preferences color="Green" font="Arial" size="3"/>
-	</time>
-	<time time="0:05:00">
-		<message sender="Bob" text="I do it is the best"/>
-		<preferences color="Purple" font="Arial" size="2"/>
-	</time>
-	<time time="0:06:00">
-		<message sender="Alice" text="I know, I wish I developed it"/>
-		<preferences color="Orange" font="Arial" size="1"/>
-	</time>
-	<time time="0:07:00">
-		<message sender="Bob" text="If you did I bet you would get an A in XML from Professor Liu"/>
-		<preferences color="Blue" font="Arial" size="7"/>
-	</time>
-	<time time="00:40:58">
-		<message message="Bryant is a bromosexual" sender="The World, Bitch"/>
-		<preferences color="Black" font="Times New Roman" size="12"/>
-	</time>
-	<time time="00:41:57">
-		<message message="Bryant is a bromosexual" sender="The World, Bitch"/>
-		<preferences color="Black" font="Times New Roman" size="12"/>
-	</time>
-<time time="15:16:14"><message message="hi" sender="&#10;&#9;&#9;Alice&#10;&#9;"/><preferences color="Orange" font="Courier New" size="5"/></time><time time="16:14:47"><message message="ji" sender="Alice"/><preferences color="Orange" font="Courier New" size="5"/></time></conversation>
+</conversation>
