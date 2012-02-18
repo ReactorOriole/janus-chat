@@ -56,7 +56,7 @@ public class ChatWindow implements ActionListener{
 	public ChatWindow() {
 		initialize();
 		run();
-		
+
 	}
 
 	private void run() {
@@ -99,69 +99,69 @@ public class ChatWindow implements ActionListener{
 
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2, BorderLayout.NORTH);
-		
+
 		//get the user preferences to set the default on the combo box(s)
 		ArrayList s = new ArrayList<String>();
 		s = getComboPreferences();
-		
+
 		//read all of the fonts/colors/sizes
 		File f3 = new File(FONTFILE);
 		JanusProcessor jp = new JanusProcessor(f3);
 		NodeList nodes = (NodeList)jp.xpathQuery("/font/fonts/font/text()");
 		ArrayList<String> al = new ArrayList<String>();
 		for (int i = 0; i < nodes.getLength(); i++) {
-			 al.add(nodes.item(i).getNodeValue()); 
+			al.add(nodes.item(i).getNodeValue()); 
 		}
 		panel_2.setLayout(new GridLayout(0, 3, 0, 0));
-		
+
 		//add actionlistener and update the preferences file
 		JComboBox textCombo = new JComboBox( al.toArray() );
 		textCombo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        JComboBox cb = (JComboBox)e.getSource();
-		        String font = (String)cb.getSelectedItem();
-		        JanusUpdater.update("font", font);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox)e.getSource();
+				String font = (String)cb.getSelectedItem();
+				JanusUpdater.update("font", font);
+			}
 		});
 		textCombo.setSelectedItem(s.get(0));
 		panel_2.add(textCombo);
-		
+
 		//sizes
 		al.clear();
 		nodes = jp.xpathQuery("/font/sizes/size/text()");
 		for (int i = 0; i < nodes.getLength(); i++) {
-			 al.add(nodes.item(i).getNodeValue()); 
+			al.add(nodes.item(i).getNodeValue()); 
 		}
 		//add actionlistener
 		JComboBox sizeCombo = new JComboBox( al.toArray() );
 		sizeCombo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        JComboBox cb = (JComboBox)e.getSource();
-		        String size = (String)cb.getSelectedItem();
-		        JanusUpdater.update("size", size);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox)e.getSource();
+				String size = (String)cb.getSelectedItem();
+				JanusUpdater.update("size", size);
+			}
 		});	
 		sizeCombo.setSelectedItem(s.get(1));
 		panel_2.add(sizeCombo);
-		
+
 		//colors
 		al.clear();
 		nodes = jp.xpathQuery("/font/colors/color/text()");
 		for (int i = 0; i < nodes.getLength(); i++) {
-			 al.add(nodes.item(i).getNodeValue()); 
+			al.add(nodes.item(i).getNodeValue()); 
 		}
 		//add actionlistener to combo
 		JComboBox colorCombo = new JComboBox(al.toArray() );
 		colorCombo.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        JComboBox cb = (JComboBox)e.getSource();
-		        String color = (String)cb.getSelectedItem();
-		        JanusUpdater.update("color", color);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				JComboBox cb = (JComboBox)e.getSource();
+				String color = (String)cb.getSelectedItem();
+				JanusUpdater.update("color", color);
+			}
 		});	
 		colorCombo.setSelectedItem(s.get(2));
 		panel_2.add(colorCombo);
-		
+
 		//add enter key listener so we send a message when enter is pressed
 		sendTextField.addKeyListener(new KeyAdapter(){ 		
 			public void keyPressed(KeyEvent e){ 
@@ -169,7 +169,7 @@ public class ChatWindow implements ActionListener{
 					sendMessage();
 			} 
 		});
-		
+
 		JanusMessageService.receiveMessages();
 		editorPane = new JEditorPane();
 		editorPane.setEditable(false);
@@ -177,7 +177,7 @@ public class ChatWindow implements ActionListener{
 		scrollPane = new JScrollPane(editorPane);
 		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
 			public void adjustmentValueChanged(AdjustmentEvent e){
-			editorPane.select(editorPane.getHeight()+1000,0);
+				editorPane.select(editorPane.getHeight()+1000,0);
 			}});
 		panel.add(scrollPane, BorderLayout.CENTER);
 		updateWindow();
@@ -188,11 +188,11 @@ public class ChatWindow implements ActionListener{
 		JanusProcessor jp = new JanusProcessor(new File(PREFFILE));
 		NodeList nodes = (NodeList)jp.xpathQuery("/defaults/font/text()");
 		ArrayList<String> al = new ArrayList<String>();
-		 al.add(nodes.item(0).getNodeValue()); 
-		 nodes = (NodeList)jp.xpathQuery("/defaults/size/text()");
-		 al.add(nodes.item(0).getNodeValue());
-		 nodes = (NodeList)jp.xpathQuery("/defaults/color/text()");
-		 al.add(nodes.item(0).getNodeValue());
+		al.add(nodes.item(0).getNodeValue()); 
+		nodes = (NodeList)jp.xpathQuery("/defaults/size/text()");
+		al.add(nodes.item(0).getNodeValue());
+		nodes = (NodeList)jp.xpathQuery("/defaults/color/text()");
+		al.add(nodes.item(0).getNodeValue());
 		return al;
 	}
 
@@ -212,15 +212,23 @@ public class ChatWindow implements ActionListener{
 	}
 
 	public static void updateWindow() {
-		try{
-			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
-			File f = new File(TEMPFILE);
-			editorPane.setPage(f.toURI().toURL());
-			Document doc = editorPane.getDocument();
-			doc.putProperty(Document.StreamDescriptionProperty, null);
-			editorPane.repaint();
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}		
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try{
+					
+					JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
+					File f = new File(TEMPFILE);
+					editorPane.setPage(f.toURI().toURL());
+					Thread.sleep(35);
+					Document doc = editorPane.getDocument();
+					doc.putProperty(Document.StreamDescriptionProperty, null);
+					//editorPane.repaint();
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}  
+			}
+		});
+
 	}
 }
