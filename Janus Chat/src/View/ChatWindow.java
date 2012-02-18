@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -173,6 +175,10 @@ public class ChatWindow implements ActionListener{
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
 		scrollPane = new JScrollPane(editorPane);
+		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){
+			public void adjustmentValueChanged(AdjustmentEvent e){
+			editorPane.select(editorPane.getHeight()+1000,0);
+			}});
 		panel.add(scrollPane, BorderLayout.CENTER);
 		updateWindow();
 	}
