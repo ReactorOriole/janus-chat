@@ -176,14 +176,7 @@ public class ChatWindow implements ActionListener{
 				editorPane.select(editorPane.getHeight()+1000,0);
 			}});
 		panel.add(scrollPane, BorderLayout.CENTER);
-		try{
-			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
-			File f = new File(TEMPFILE);
-			editorPane.setPage(f.toURI().toURL());					
-			
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		updateWindow();
 	}
 
 	private ArrayList<String> getComboPreferences() {
