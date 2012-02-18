@@ -94,7 +94,7 @@ public class ChatWindow implements ActionListener{
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
 		//get the user preferences to set the default on the combo box(s)
-		ArrayList s = new ArrayList<String>();
+		ArrayList<String> s = new ArrayList<String>();
 		s = getComboPreferences();
 		
 		//read all of the fonts/colors/sizes
@@ -170,6 +170,7 @@ public class ChatWindow implements ActionListener{
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
 		scrollPane.setViewportView(editorPane);
+		updateWindow();
 	}
 
 	private ArrayList<String> getComboPreferences() {
@@ -206,9 +207,11 @@ public class ChatWindow implements ActionListener{
 			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
 			File f = new File(TEMPFILE);
 			editorPane.setPage(f.toURI().toURL());
+			editorPane.revalidate();
 			editorPane.repaint();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			
 		}		
 	}
 }
