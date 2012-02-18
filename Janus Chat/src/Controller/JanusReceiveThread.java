@@ -29,8 +29,8 @@ public class JanusReceiveThread extends Thread {
 						.item(0);
 
 				// Update text log
-				JanusLogUpdater.update(message.getTextContent(),
-						sender.getTextContent());
+				JanusLogUpdater.update(sender.getTextContent(),
+						message.getTextContent());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
