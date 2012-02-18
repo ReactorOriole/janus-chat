@@ -18,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
+import javax.swing.text.Document;
+
 import org.w3c.dom.NodeList;
 
 import Controller.JanusMessageService;
@@ -94,7 +96,7 @@ public class ChatWindow implements ActionListener{
 		panel_1.add(panel_2, BorderLayout.NORTH);
 		
 		//get the user preferences to set the default on the combo box(s)
-		ArrayList<String> s = new ArrayList<String>();
+		ArrayList s = new ArrayList<String>();
 		s = getComboPreferences();
 		
 		//read all of the fonts/colors/sizes
@@ -170,7 +172,6 @@ public class ChatWindow implements ActionListener{
 		editorPane.setEditable(false);
 		editorPane.setContentType("text/html");
 		scrollPane.setViewportView(editorPane);
-		updateWindow();
 	}
 
 	private ArrayList<String> getComboPreferences() {
@@ -207,11 +208,11 @@ public class ChatWindow implements ActionListener{
 			JanusTransformer.transform(TEXTLOG, XSLFILE, TEMPFILE);
 			File f = new File(TEMPFILE);
 			editorPane.setPage(f.toURI().toURL());
-			editorPane.revalidate();
+			Document doc = editorPane.getDocument();
+			doc.putProperty(Document.StreamDescriptionProperty, null);
 			editorPane.repaint();
 		} catch (Exception e1) {
 			e1.printStackTrace();
-			
 		}		
 	}
 }
