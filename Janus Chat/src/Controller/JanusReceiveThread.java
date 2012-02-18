@@ -21,19 +21,16 @@ public class JanusReceiveThread extends Thread {
 					socket.getInputStream());
 
 			try {
+				Document document = (Document) reader.readObject();
 
-				while (true) {
-					Document document = (Document) reader.readObject();
+				Element message = (Element) document.getElementsByTagName(
+						"message").item(0);
+				Element sender = (Element) document.getElementsByTagName("sn")
+						.item(0);
 
-					Element message = (Element) document.getElementsByTagName(
-							"message").item(0);
-					Element sender = (Element) document.getElementsByTagName(
-							"sn").item(0);
-
-					// Update text log
-					JanusLogUpdater.update(message.getNodeValue(),
-							sender.getNodeValue());
-				}
+				// Update text log
+				JanusLogUpdater.update(message.getTextContent(),
+						sender.getTextContent());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
