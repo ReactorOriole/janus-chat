@@ -5,6 +5,7 @@ import java.net.Socket;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class JanusReceiveThread extends Thread {
 
@@ -23,14 +24,17 @@ public class JanusReceiveThread extends Thread {
 			try {
 				Document document = (Document) reader.readObject();
 
-				Element message = (Element) document.getElementsByTagName(
-						"message").item(0);
-				Element sender = (Element) document.getElementsByTagName("sn")
-						.item(0);
+				JanusProcessor jp = new JanusProcessor(document);
+				String chatMessage = (String) ((NodeList) jp
+						.xpathQuery("/message/chatMessage/text()")).item(0)
+						.getTextContent();
+
+				String sender = (String) ((NodeList) jp
+						.xpathQuery("/message/sn/text()")).item(0)
+						.getTextContent();
 
 				// Update text log
-				JanusLogUpdater.update(sender.getTextContent(),
-						message.getTextContent());
+				JanusLogUpdater.update(sender, chatMessage);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
