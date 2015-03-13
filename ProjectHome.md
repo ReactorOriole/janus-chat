@@ -1,0 +1,1 @@
+A java based instant message system. The program is a simple server-client IM based program. This program uses XML as main means for communication and uses xslt to display to users.
